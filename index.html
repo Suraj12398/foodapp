@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/index.css">
+</head>
+<body>
+    <div id="cont"></div>
+    <img style="height: 150px; margin-left: 50%;" src="https://mir-s3-cdn-cf.behance.net/projects/404/443644106255131.Y3JvcCwxMzA1LDEwMjEsMTQ4LDA.jpg" alt="">
+    <div class="search">
+       
+        <label for="">Search Food</label>
+        <input id="searchbox" type="text" placeholder="Search food">
+        <button id="search">Search</button>
+       
+     </div>
+   <div id="showdata"></div>
+</body>
+</html>
+<script type="module">
+// function search(){
+    
+// }
+let cont = document.getElementById("cont");
+import navbar from './components/navbar.js'
+cont.innerHTML = navbar()
+
+import searchdish from './scripts/script.js'
+let response = searchdish("https://www.themealdb.com/api/json/v1/1/filter.php?a=Italian")   
+response.then((res)=>{
+    console.log(res)
+    appenddata(res.Meal)
+})
+
+let btn = document.getElementById("search");
+btn.addEventListener("click",searchfood)
+async function searchfood(){
+    let showdat = document.getElementById("showdata").innerHTML = ""
+    let box = document.getElementById("searchbox").value;
+   let res = await fetch (`https://www.themealdb.com/api/json/v1/1/search.php?s=${box}`) 
+   let data = await res.json()
+   data = data.meals;
+   console.log(data)
+   appenddata(data)
+}
+
+// var searchquery= document.getElementById("search")
+// searchquery.addEventListener("click",searchbar)
+
+// function searchbar(){
+//     let box = document.getElementById("searchbox").value;
+//     console.log(box)
+// }
+
+
+
+
+function appenddata(data){
+   data.forEach(function(data){
+    let price = document.createElement("p")
+    price.textContent = "Price - " +Math.floor(Math.random()*1000)
+    let showdata = document.getElementById("showdata");
+    let div = document.createElement("div")
+    let image =document.createElement("img");
+    let p = document.createElement("p");
+    image.src = data.strMealThumb;
+    p.innerHTML = data.strMeal;
+    div.append(image,p,price)
+    showdata.append(div)
+    
+})
+
+}
+
+
+
+
+
+
+
+    
+
+console.log(response);
+response.then((res) =>{
+       console.log(res)
+       appenddata(res,showdata)
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

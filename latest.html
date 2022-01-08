@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/index.css">
+</head>
+<body>
+    
+    <div id="cont"></div>
+    <h1 style="text-align: center; margin-bottom: 5%;">Latest Recipe</h1>
+    <div id="showdata"></div>
+</body>
+</html>
+<script type="module">
+let cont = document.getElementById("cont");
+import navbar from './components/navbar.js'
+cont.innerHTML = navbar()
+
+let showdata = document.getElementById("showdata")
+ async function latest(){
+     let response = await fetch ("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood")
+     let data = await response.json()
+     console.log(data.meals)
+     appenddata2(data.meals)
+ }
+ latest()
+
+
+
+
+
+
+
+
+function appenddata2(data){
+   data.forEach(function(data){
+    let price = document.createElement("p")
+    price.textContent ="Price - " + Math.floor(Math.random()*1000)
+    let showdata = document.getElementById("showdata");
+    let div = document.createElement("div")
+    let image =document.createElement("img");
+    let p = document.createElement("p");
+    image.src = data.strMealThumb;
+    p.innerHTML = data.strMeal;
+    div.append(image,p,price)
+    showdata.append(div)
+    
+})
+
+}
+
+
+
+
+</script>
