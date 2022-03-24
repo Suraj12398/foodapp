@@ -1,3 +1,4 @@
+<h1>Food Searching Website</h1>
 <h3>It is food search website that allows you to search any kind of food and beverages, This websites takes help of API for generating food data. </h3>
 <br>
 <h2>Language and Tools</h2>
